@@ -4,24 +4,43 @@ import qualified Data.Set as Set
 type Coord = (Int, Int)
 type State = (Coord, Set Coord)
 
-main = do
+part1 = do
     input <- readFile "day3.input"
-    santaVisited <- deliverPresents input
-    santaUnique <- nbrUniqueVisited santaVisited
-    roboVisited <- mirror santaVisited
-    totalVisited <- nbrUniqueVisited $ Set.union santaVisited roboVisited
-    return $ (santaUnique, totalVisited)
-    
+    return $ getNbrVisited input
 
+part2 = do
+      input <- readFile "day3.input"
+      return $ getNbrBothVisited input
+
+everyOther xs = case drop 1 xs of
+              (y:ys) -> y : everyOther ys
+              [] -> []
+
+getNbrVisited :: String -> Int
+getNbrVisited input = nbrUniqueVisited $ deliverPresents input 
+
+getNbrBothVisited :: String -> Int
+getNbrBothVisited s = Set.size $ getBothVisited s
+
+getBothVisited :: String -> Set Coord
+getBothVisited input = Set.union santa robot
+            where santa = snd $ deliverPresents $ santaInput input
+                  robot = snd $ deliverPresents $ robotInput input
+
+santaInput input = everyOther $ ' ' : input
+robotInput input = everyOther input
+
+getRoboVisited :: Set Coord -> Set Coord
+getRoboVisited santaVisited = mirror $ santaVisited
 
 mirror :: Set Coord -> Set Coord
-mirror set = Set.fromList $ map mirrorCord set
+mirror set = Set.fromList $ map mirrorCord $ Set.toList set
 
 mirrorCord :: Coord -> Coord
 mirrorCord (a, b) = (-a, -b)
 
 
-nbrUniqueVisited :: IO State -> Int
+nbrUniqueVisited :: State -> Int
 nbrUniqueVisited state = Set.size $ snd state
 
 deliverPresents :: String -> State
