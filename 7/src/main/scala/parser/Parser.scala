@@ -1,11 +1,14 @@
 package parser
 
-import parser._
+import _root_.parser.Language._
 
 /**
   * Created by Johan on 2015-12-11.
   */
 class Parser {
+  def get(s: String): Int = {
+    memory.get(Id(s)).get.value(memory)
+  }
 
   val ASSIGN: String = "->"
 
@@ -22,22 +25,18 @@ class Parser {
       case 2 => parseUnary(lhsTokens, rhs)
       case 3 => parseBinary(lhsTokens, rhs)
     }
-
-
   }
 
-  def parseAssign(lhsTokens: Array[String], rhs: String) = ???
-
-  def parseUnary(lhsTokens: Array[String], rhs: String) = ???
-
-  def operation(op: String, a: Id, b: Id): Operation = op match {
-    case "AND" => And(a, b)
-    case "OR" => Or(a, b)
-    case "RSHIFT" => RShift(a, b)
-    case "LSHIFT" => LShift(a, b)
+  def parseAssign(lhsTokens: Array[String], rhs: String) = {
+    val a = lhsTokens(0)
+    memory.put(Id(rhs), Id(a))
   }
 
-  def store(value: Nothing, dest: String) = ???
+  def parseUnary(lhsTokens: Array[String], dest: String) = {
+    val op = lhsTokens(0)
+    val a = lhsTokens(1)
+    memory.put(Id(dest), operation(op, Id(a)))
+  }
 
   def parseBinary(lhsTokens: Array[String], dest: String) = {
     val op = lhsTokens(1)
@@ -46,6 +45,16 @@ class Parser {
     memory.put(Id(dest), operation(op, a, b))
   }
 
-  def get(s: String): Int = ???
+  def operation(op: String, a: Id): UnaryOp = op match {
+    case "NOT" => Not(a)
+  }
+
+  def operation(op: String, a: Id, b: Id): BinOp = op match {
+    case "AND" => And(a, b)
+    case "OR" => Or(a, b)
+    case "RSHIFT" => RShift(a, b)
+    case "LSHIFT" => LShift(a, b)
+  }
+
 
 }

@@ -1,5 +1,7 @@
 package parser
 
+import _root_.parser.Language.{Id, Expr}
+
 import scala.collection.mutable.HashMap
 
 /**
