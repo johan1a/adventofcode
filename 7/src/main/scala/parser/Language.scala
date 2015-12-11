@@ -1,6 +1,5 @@
-package parser
+package scala.parser
 
-import parser.Memory
 
 /**
   * Created by Johan on 2015-12-11.
@@ -10,13 +9,14 @@ object Language {
 
   val bitMask = 65535
 
-  abstract case class Expr() {
+  abstract class Expr() {
     def value(memory: Memory): Int
   }
 
-  abstract case class BinOp() extends Expr {
+  abstract class BinOp() extends Expr {
   }
 
+  abstract class UnaryOp() extends Expr
 
   case class And(a: Expr, b: Expr) extends BinOp {
     override def value(memory: Memory) = {
@@ -42,8 +42,6 @@ object Language {
     }
   }
 
-  abstract case class UnaryOp() extends Expr
-
   case class Not(a: Expr) extends UnaryOp {
     override def value(memory: Memory): Int = {
       bitMask & (~a.value(memory))
@@ -52,7 +50,7 @@ object Language {
 
   case class Id(name: String) extends Expr {
     override def value(memory: Memory): Int = {
-      val ref = memory.get(this)
+      val ref: Option[Expr] = memory.get(this)
       ref.get.value(memory)
     }
   }
