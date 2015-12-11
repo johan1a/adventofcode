@@ -39,7 +39,10 @@ class Runner {
     lights.brightness
   }
 
-
+  def runString(lights: Lights, input: String): Int = {
+    interpret(input, lights)
+    lights.brightness
+  }
 
   def test(lights: Lights, input: List[String]) = {
     for (line <- input) {
