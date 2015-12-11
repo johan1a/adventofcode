@@ -33,7 +33,6 @@ class Runner {
 
   def runFile(lights: Lights, file: Source): Int = {
     for (line <- file getLines) {
-      println(line)
       interpret(line, lights)
     }
     lights.brightness
