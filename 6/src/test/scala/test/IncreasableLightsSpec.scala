@@ -23,9 +23,13 @@ class IncreasableLightsSpec extends FunSuite {
     assert(runTestFile(lights, "/test1.input") == 1)
   }
 
-  test("Should be 2000") {
+  test("Should be 2 000 000") {
     assert(runner.runString(new IncreasableLights(), "toggle 0,0 through 999,999") == 2000000)
   }
 
+  test("Should be 2 000 001") {
+    val input = List("toggle 0,0 through 999,999", "turn on 0,0 through 0,0")
+    assert(runner.runList(new IncreasableLights(), input) == 2000001)
+  }
 
 }

@@ -44,12 +44,8 @@ class Runner {
     lights.brightness
   }
 
-  def test(lights: Lights, input: List[String]) = {
-    for (line <- input) {
-      println(line)
-      interpret(line, lights)
-    }
-    val count = lights.brightness
-    println(s"Nbr lights on: $count\n")
+  def runList(lights: Lights, input: List[String]): Int = {
+    input.foreach(interpret(_, lights))
+    lights.brightness
   }
 }
