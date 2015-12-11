@@ -73,12 +73,27 @@ class IncreasableLightsSpec extends FunSuite {
 
   test("Two line sub"){
     val lights = new IncreasableLights()
-    assert(runTestFile(lights, "/lines2sub.input") == 25392) //45333 - 19941
+    assert(runTestFile(lights, "/lines2sub.input") == 45333) //45333 - 19941
+  }
+
+  test("3 lines"){
+    val lights = new IncreasableLights()
+    assert(runTestFile(lights, "/3lines.input") == 64203)
+  }
+
+  test("10 lines"){
+    val lights = new IncreasableLights()
+    assert(runTestFile(lights, "/10lines.input") == 539560)
+  }
+
+  test("100 lines"){
+    val lights = new IncreasableLights()
+    assert(runTestFile(lights, "/100lines.input") == 6107098)
   }
 
   test("real input") {
     val lights = new IncreasableLights()
-    assert(runTestFile(lights, "/day6.input") == 1)
+    assert(runTestFile(lights, "/day6.input") == 14110788)
   }
 
 }

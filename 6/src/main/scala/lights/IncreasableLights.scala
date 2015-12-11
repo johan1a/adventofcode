@@ -23,8 +23,9 @@ class IncreasableLights() extends Lights() {
   }
 
   override def turnOffFunc(x: Int, y: Int): Unit = {
-    if (lights(x, y) >= 0) {
-      lights.put((x, y), lights(x, y) - 1)
+    val old: Int = lights(x, y)
+    if (old > 0) {
+      lights.put((x, y), old - 1)
     }
   }
 
