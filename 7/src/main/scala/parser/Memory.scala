@@ -1,7 +1,7 @@
 package scala.parser
 
 import scala.collection.mutable.HashMap
-import scala.parser.Language.{Id, Expr}
+import scala.parser.Language.{Num, Id, Expr}
 
 /**
   * Created by Johan on 2015-12-11.
@@ -10,7 +10,7 @@ class Memory {
   def get(s: String): Int = {
     println(s"Getting $s")
     get(Id(s)) match {
-      case Some(Id(a)) => a.toInt
+      case Some(Num(a)) => a.toInt
       case _ => throw new NullPointerException
     }
   }

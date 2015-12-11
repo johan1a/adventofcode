@@ -18,10 +18,13 @@ class IncreasableLightsSpec extends FunSuite {
     runner.runFile(new Parser(), Source.fromURL(getClass.getResource(file)))
   }
 
-  test("store Int"){
+  test("store Int") {
     val memory = new Memory
     memory.put(Id("x"), Num(123))
+    assert(memory.get("x") == 123)
   }
+
+
 
   test("x should be 123") {
     val memory: Memory = runTestFile("/test1")
