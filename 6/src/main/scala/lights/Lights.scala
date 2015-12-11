@@ -1,6 +1,7 @@
 package lights
 
-import main.Constants._
+import util.Constants
+import Constants._
 
 /**
   * Created by Johan on 2015-12-11.
@@ -20,9 +21,9 @@ abstract class Lights {
     }
   }
 
-  abstract def toggleFunc(x: Int, y: Int): Unit
-  abstract def turnOnFunc(x: Int, y: Int): Unit
-  abstract def turnOffFunc(x: Int, y: Int): Unit
+  def toggleFunc(x: Int, y: Int): Unit
+  def turnOnFunc(x: Int, y: Int): Unit
+  def turnOffFunc(x: Int, y: Int): Unit
 
   def toggle(begin: (Int, Int), end: (Int, Int)) = {
     iterate(begin, end, (x: Int, y: Int) => toggleFunc(x, y))
@@ -36,6 +37,6 @@ abstract class Lights {
     iterate(begin, end, (x: Int, y: Int) => turnOffFunc(x, y))
   }
 
-  abstract def count
+  def brightness : Int
 
 }

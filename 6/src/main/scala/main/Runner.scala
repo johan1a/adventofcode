@@ -1,11 +1,16 @@
+package main
 
-import lights.{ToggleableLights, IncreasableLights, Lights}
-import main.Constants
-import main.Constants._
+import lights.Lights
+import util.Constants
 
-import scala.io._
+import scala.collection.immutable.List
+import scala.io.Source
+import Constants._
 
-object Day6 {
+/**
+  * Created by Johan on 2015-12-11.
+  */
+class Runner {
 
   def parseRange(rangeString: String): (Int, Int) = {
     val values = rangeString.split(",").map(_.toInt)
@@ -26,37 +31,22 @@ object Day6 {
     }
   }
 
-  def runFile(lights: Lights) = {
-    for (line <- Source.fromFile("day6.input") getLines) {
+  def runFile(lights: Lights, file: Source): Int = {
+    for (line <- file getLines) {
       println(line)
       interpret(line, lights)
     }
-    val count = lights.count
-    println(s"Nbr lights on: $count\n")
+    lights.brightness
   }
+
+
 
   def test(lights: Lights, input: List[String]) = {
     for (line <- input) {
       println(line)
       interpret(line, lights)
     }
-    val count = lights.count
+    val count = lights.brightness
     println(s"Nbr lights on: $count\n")
   }
-
-  def part1 = {
-    runFile(new ToggleableLights())
-  }
-
-  def part2 = {
-    runFile(new IncreasableLights())
-  }
-
-  def test2 = {
-    val input = List("turn on 0,0 through 0,0", "toggle 0,0 through 999,999")
-    test(new IncreasableLights(), input)
-  }
-
 }
-
-

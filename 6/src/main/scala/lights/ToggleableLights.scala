@@ -27,7 +27,7 @@ class ToggleableLights() extends Lights {
     lights.put((x, y), false)
   }
 
-  override def count = {
+  override def brightness = {
     lights.count((a) => a._2)
   }
 }

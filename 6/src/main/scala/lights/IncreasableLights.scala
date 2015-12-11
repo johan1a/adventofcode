@@ -28,7 +28,7 @@ class IncreasableLights() extends Lights() {
     }
   }
 
-  override def count = {
+  override def brightness = {
     lights.values.sum
   }
 }
