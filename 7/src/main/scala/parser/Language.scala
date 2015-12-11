@@ -20,13 +20,14 @@ object Language {
 
   case class And(a: Expr, b: Expr) extends BinOp {
     override def eval(memory: Memory) = {
-      bitMask & (eval(memory) & b.eval(memory))
+      val result: Int = bitMask & (a.eval(memory) & b.eval(memory))
+      result
     }
   }
 
   case class Or(a: Expr, b: Expr) extends BinOp {
     override def eval(memory: Memory): Int = {
-      bitMask & (eval(memory) | b.eval(memory))
+      bitMask & (a.eval(memory) | b.eval(memory))
     }
   }
 

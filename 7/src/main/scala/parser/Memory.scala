@@ -7,10 +7,11 @@ import scala.parser.Language.{Num, Id, Expr}
   * Created by Johan on 2015-12-11.
   */
 class Memory {
-  def get(s: String): Int = {
+  def eval(s: String): Int = {
     println(s"Getting $s")
     get(Id(s)) match {
       case Some(Num(a)) => a.toInt
+      case Some(a : Expr) => a.eval(this)
       case _ => throw new NullPointerException
     }
   }

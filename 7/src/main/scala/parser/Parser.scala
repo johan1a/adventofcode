@@ -44,15 +44,15 @@ class Parser {
   def parseBinary(lhsTokens: Array[String], dest: String) = {
     val op = lhsTokens(1)
     val a = numOrdId(lhsTokens(0))
-    val b = numOrdId(lhsTokens(1))
+    val b = numOrdId(lhsTokens(2))
     memory.put(makeId(dest), operation(op, a, b))
   }
 
-  def operation(op: String, a: Expr): UnaryOp = op match {
+  def operation(op: String, a: Expr): UnaryOp = op.toUpperCase match {
     case "NOT" => Not(a)
   }
 
-  def operation(op: String, a: Expr, b: Expr): BinOp = op match {
+  def operation(op: String, a: Expr, b: Expr): BinOp = op.toUpperCase match {
     case "AND" => And(a, b)
     case "OR" => Or(a, b)
     case "RSHIFT" => RShift(a, b)
@@ -67,7 +67,7 @@ class Parser {
     try {
       Num(a.toInt)
     } catch {
-      case _ : Throwable => makeId(a)
+      case _: Throwable => makeId(a)
     }
   }
 }
