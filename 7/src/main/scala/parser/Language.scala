@@ -10,7 +10,7 @@ object Language {
   val bitMask = 65535
 
   abstract class Expr() {
-    def value(memory: Memory): Int
+    def eval(memory: Memory): Int
   }
 
   abstract class BinOp() extends Expr {
@@ -19,44 +19,49 @@ object Language {
   abstract class UnaryOp() extends Expr
 
   case class And(a: Expr, b: Expr) extends BinOp {
-    override def value(memory: Memory) = {
-      bitMask & (value(memory) & b.value(memory))
+    override def eval(memory: Memory) = {
+      bitMask & (eval(memory) & b.eval(memory))
     }
   }
 
   case class Or(a: Expr, b: Expr) extends BinOp {
-    override def value(memory: Memory): Int = {
-      bitMask & (value(memory) | b.value(memory))
+    override def eval(memory: Memory): Int = {
+      bitMask & (eval(memory) | b.eval(memory))
     }
   }
 
   case class LShift(a: Expr, b: Expr) extends BinOp {
-    override def value(memory: Memory): Int = {
-      bitMask & (a.value(memory) << b.value(memory))
+    override def eval(memory: Memory): Int = {
+      bitMask & (a.eval(memory) << b.eval(memory))
     }
   }
 
   case class RShift(a: Expr, b: Expr) extends BinOp {
-    override def value(memory: Memory): Int = {
-      bitMask & (a.value(memory) >> b.value(memory))
+    override def eval(memory: Memory): Int = {
+      bitMask & (a.eval(memory) >> b.eval(memory))
     }
   }
 
   case class Not(a: Expr) extends UnaryOp {
-    override def value(memory: Memory): Int = {
-      bitMask & (~a.value(memory))
+    override def eval(memory: Memory): Int = {
+      bitMask & (~a.eval(memory))
     }
   }
 
   case class Id(name: String) extends Expr {
-    override def value(memory: Memory): Int = {
+    override def eval(memory: Memory): Int = {
       val ref: Option[Expr] = memory.get(this)
-      ref.get.value(memory)
+      ref.get.eval(memory)
     }
   }
 
+  case class Num(value: Int) extends Expr {
+    override def eval(memory: Memory): Int = value
+  }
+
+
   case class NilValue() extends Expr {
-    override def value(memory: Memory): Int = {
+    override def eval(memory: Memory): Int = {
       throw new NullPointerException
     }
   }
