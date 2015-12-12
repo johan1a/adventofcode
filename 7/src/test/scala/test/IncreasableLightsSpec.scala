@@ -50,7 +50,7 @@ class IncreasableLightsSpec extends FunSuite {
     val memory: Memory = runTestFile("day7.input")
     println(memory.pretty)
     println("Parsing done. Evaluating...")
-    assert(memory.eval("a") == 0)
+    assert(memory.eval("a") == 16076)
 
   }
 
