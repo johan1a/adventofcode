@@ -20,8 +20,16 @@ class ParserSpec extends FunSuite {
   }
 
 
-  test("Test file 1") {
-    testFile("test1", 16, 7)
+  test("Test 1 line") {
+    testFile("1lines", 16, 7)
+  }
+
+  test("Test 2 lines") {
+    testFile("2lines", 20, 9)
+  }
+
+  test("Test 3 lines") {
+    testFile("3lines", 57, 39)
   }
 
   test("Test file 2") {
@@ -31,16 +39,16 @@ class ParserSpec extends FunSuite {
   test("Test file 3") {
     testFile("test3", 6, 1)
   }
-/*
+
   test("Test final ") {
     val result = runTestFile("input")
     val codeCharCount: Int = result.codeCharCount
     val memoryCharCount: Int = result.memoryCharCount
     assert(codeCharCount == 6489)
-    assert(memoryCharCount == 45150)
+    assert(memoryCharCount == 762584)
     assert(codeCharCount - memoryCharCount == 2)
   }
-*/
+
   test("Test empty ") {
     testString("\"\"", 2, 0)
   }

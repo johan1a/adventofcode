@@ -59,6 +59,7 @@ class Parser {
   }
 
   def parse(input: String): ParseResult = {
+    memoryChars = new scala.collection.mutable.ListBuffer[String]()
     parseStringLiteral(new StringBuilder(input filter (_ >= ' ')))
     ParseResult(memoryChars.toList, input.length)
   }

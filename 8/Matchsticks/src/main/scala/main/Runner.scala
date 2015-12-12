@@ -15,7 +15,8 @@ class Runner {
 
   def runFile(parser: Parser, file: Source): ParseResult = {
     val results: List[ParseResult] = file.getLines.map(parser.parse).toList
-    sumResults(results)
+    val result: ParseResult = sumResults(results)
+    result
   }
 
 }
