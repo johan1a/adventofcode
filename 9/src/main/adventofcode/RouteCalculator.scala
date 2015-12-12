@@ -3,8 +3,6 @@ package adventofcode
 import scala.collection.mutable
 import scala.io.Source
 
-import scala.collection.Seq
-
 /**
   * Created by Johan on 2015-12-12.
   */
