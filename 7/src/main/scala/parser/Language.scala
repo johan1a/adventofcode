@@ -20,39 +20,74 @@ object Language {
 
   case class And(a: Expr, b: Expr) extends BinOp {
     override def eval(memory: Memory) = {
-      val result: Int = bitMask & (a.eval(memory) & b.eval(memory))
-      result
+      memory.getCached(this) match {
+        case Some(a: Int) => a
+        case _ => {
+          val result: Int = bitMask & (a.eval(memory) & b.eval(memory))
+          memory.putCache(this, result)
+          result
+        }
+      }
     }
   }
 
   case class Or(a: Expr, b: Expr) extends BinOp {
     override def eval(memory: Memory): Int = {
-      bitMask & (a.eval(memory) | b.eval(memory))
+      memory.getCached(this) match {
+        case Some(a: Int) => a
+        case _ => {
+          val result: Int = bitMask & (a.eval(memory) | b.eval(memory))
+          memory.putCache(this, result)
+          result
+        }
+      }
     }
   }
 
   case class LShift(a: Expr, b: Expr) extends BinOp {
     override def eval(memory: Memory): Int = {
-      bitMask & (a.eval(memory) << b.eval(memory))
+      memory.getCached(this) match {
+        case Some(a: Int) => a
+        case _ => {
+          val result: Int = bitMask & (a.eval(memory) << b.eval(memory))
+          memory.putCache(this, result)
+          result
+        }
+      }
     }
   }
 
   case class RShift(a: Expr, b: Expr) extends BinOp {
     override def eval(memory: Memory): Int = {
-      bitMask & (a.eval(memory) >> b.eval(memory))
+      memory.getCached(this) match {
+        case Some(a: Int) => a
+        case _ => {
+          val result: Int = bitMask & (a.eval(memory) >> b.eval(memory))
+          memory.putCache(this, result)
+          result
+        }
+      }
     }
   }
 
   case class Not(a: Expr) extends UnaryOp {
     override def eval(memory: Memory): Int = {
-      bitMask & (~a.eval(memory))
+      memory.getCached(this) match {
+        case Some(a: Int) => a
+        case _ => {
+          val result: Int = bitMask & (~a.eval(memory))
+          memory.putCache(this, result)
+          result
+        }
+      }
     }
   }
 
   case class Id(name: String) extends Expr {
     override def eval(memory: Memory): Int = {
-      val ref: Option[Expr] = memory.get(this)
-      ref.get.eval(memory)
+      val result: Int = memory.get(this).get.eval(memory)
+      memory.putCache(this, result)
+      result
     }
   }
 

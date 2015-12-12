@@ -1,32 +1,60 @@
 package scala.parser
 
+import scala.collection.mutable
 import scala.collection.mutable.HashMap
-import scala.parser.Language.{Num, Id, Expr}
+import scala.parser.Language.{And, Expr, Id, Num}
 
 /**
   * Created by Johan on 2015-12-11.
   */
 class Memory {
-  def eval(s: String): Int = {
-    println(s"Getting $s")
-    get(Id(s)) match {
-      case Some(Num(a)) => a.toInt
-      case Some(a : Expr) => a.eval(this)
-      case _ => throw new NullPointerException
-    }
-  }
+  def getCached(expr: Expr) : Option[Int] = cache.get(expr)
+
+  val cache = new mutable.HashMap[Expr, Int]()
 
   val storage = new HashMap[Id, Expr]()
 
+  def eval(s: String): Int = {
+    println(s"Getting $s")
+    val id: Id = Id(s)
+    try {
+      val cache1: Int = cache(id)
+      println("Found cached: " + cache1)
+      cache1
+    } catch {
+      case _: Exception =>
+        get(id) match {
+          case Some(Num(a)) => a.toInt
+          case Some(a: Expr) => {
+
+            a.eval(this)
+          }
+          case _ => throw new NullPointerException
+        }
+    }
+  }
+
+  def putCache(expr: Expr, value: Int) = {
+    cache.put(expr, value)
+  }
+
   def put(id: Id, expr: Expr) = {
-    println(storage)
+    //  println(storage)
     storage.put(id, expr)
   }
 
 
   def get(id: Id): Option[Expr] = {
-    println(storage)
+    //println(storage)
     storage.get(id)
+  }
+
+  def pretty(): String = {
+    var str: String = ""
+    for (key <- storage.keys) {
+      str += new String(key + " => " + storage.get(key).get + "\n")
+    }
+    str
   }
 
 }

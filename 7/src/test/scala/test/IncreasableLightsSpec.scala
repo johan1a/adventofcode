@@ -4,7 +4,7 @@ import main.Runner
 import org.scalatest._
 
 import scala.io.Source
-import scala.parser.Language.{Num, Id}
+import scala.parser.Language.{Not, Num, Id}
 import scala.parser.{Parser, Memory}
 
 /**
@@ -29,7 +29,10 @@ class IncreasableLightsSpec extends FunSuite {
     assert(memory.eval("x") == 0)
   }
 
-
+  test("not") {
+    val memory = runTestFile("not")
+    assert(memory.eval("x") == 65534)
+  }
 
   test("x should be 123") {
     val memory: Memory = runTestFile("test1")
@@ -42,6 +45,13 @@ class IncreasableLightsSpec extends FunSuite {
     assert(memory.eval("x") == 123)
     assert(memory.eval("y") == 456)
   }
+  test("day7"){
+    println("Parsing Parsing file...")
+    val memory: Memory = runTestFile("day7.input")
+    println(memory.pretty)
+    println("Parsing done. Evaluating...")
+    assert(memory.eval("a") == 0)
 
+  }
 
 }
