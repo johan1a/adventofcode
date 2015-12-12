@@ -15,18 +15,15 @@ class Memory {
   val storage = new HashMap[Id, Expr]()
 
   def eval(s: String): Int = {
-    println(s"Getting $s")
     val id: Id = Id(s)
     try {
       val cache1: Int = cache(id)
-      println("Found cached: " + cache1)
       cache1
     } catch {
       case _: Exception =>
         get(id) match {
           case Some(Num(a)) => a.toInt
           case Some(a: Expr) => {
-
             a.eval(this)
           }
           case _ => throw new NullPointerException
@@ -39,13 +36,11 @@ class Memory {
   }
 
   def put(id: Id, expr: Expr) = {
-    //  println(storage)
     storage.put(id, expr)
   }
 
 
   def get(id: Id): Option[Expr] = {
-    //println(storage)
     storage.get(id)
   }
 
