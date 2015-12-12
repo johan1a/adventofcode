@@ -36,9 +36,15 @@ class EncoderSpec extends FunSuite {
     testString("\"\\x27\"", 11)
   }
 
+  test("test file") {
+    testFile("input", 6489, 8606)
+  }
+
   def testFile(fileName: String, expectedCode: Int, expectedMemory: Int): Unit = {
     val result = runTestFile(fileName)
     val memoryCharCount: Int = result.memoryCharCount
+    val codeCharCount: Int = result.codeCharCount
+    assert(codeCharCount == expectedCode)
     assert(memoryCharCount == expectedMemory)
   }
 
