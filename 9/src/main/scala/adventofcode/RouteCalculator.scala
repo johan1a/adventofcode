@@ -1,4 +1,4 @@
-package adventofcode
+package scala.adventofcode
 
 import scala.collection.mutable
 import scala.io.Source
