@@ -61,13 +61,8 @@ class Parser {
   def parse(input: String): ParseResult = {
     memoryChars = new scala.collection.mutable.ListBuffer[String]()
     parseStringLiteral(new StringBuilder(input filter (_ >= ' ')))
-    ParseResult(memoryChars.toList, input.length)
+    ParseResult(input,memoryChars.toList)
   }
 }
 
-case class ParseResult(memChars : List[String], codeCharCount: Int) {
-  def memoryCharCount = memChars.length
 
-  def +(that: ParseResult): ParseResult =
-    ParseResult(this.memChars ++ that.memChars, this.codeCharCount + that.codeCharCount)
-}

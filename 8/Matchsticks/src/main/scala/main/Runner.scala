@@ -1,5 +1,6 @@
 package scala.main
 
+import scala.encoder.Encoder
 import scala.io.Source
 import scala.parser.{ParseResult, Parser}
 
@@ -19,4 +20,9 @@ class Runner {
     result
   }
 
+  def runFile(encoder: Encoder, file: Source): ParseResult = {
+    val results: List[ParseResult] = file.getLines.map(encoder.encode).toList
+    val result: ParseResult = sumResults(results)
+    result
+  }
 }

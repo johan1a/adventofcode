@@ -19,7 +19,6 @@ class ParserSpec extends FunSuite {
     runner.runFile(new Parser(), Source.fromURL(getClass.getResource("/" + file)))
   }
 
-
   test("Test 1 line") {
     testFile("1lines", 16, 7)
   }
