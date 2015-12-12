@@ -29,7 +29,7 @@ class ParserSpec extends FunSuite {
   }
 
   test("Test 3 lines") {
-    testFile("3lines", 57, 39)
+    testFile("3lines", 57, 37)
   }
 
   test("Test file 2") {
@@ -45,8 +45,8 @@ class ParserSpec extends FunSuite {
     val codeCharCount: Int = result.codeCharCount
     val memoryCharCount: Int = result.memoryCharCount
     assert(codeCharCount == 6489)
-    assert(memoryCharCount == 762584)
-    assert(codeCharCount - memoryCharCount == 2)
+    assert(memoryCharCount == 5118)
+    assert(codeCharCount - memoryCharCount == 1371)
   }
 
   test("Test empty ") {
