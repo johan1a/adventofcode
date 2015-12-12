@@ -13,11 +13,10 @@ object Language {
     def eval(memory: Memory): Int = {
       memory.getCached(this) match {
         case Some(a: Int) => a
-        case _ => {
+        case _ =>
           val result: Int = calculate(memory)
           memory.putCache(this, result)
           result
-        }
       }
     }
 
