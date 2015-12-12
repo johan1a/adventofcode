@@ -16,6 +16,12 @@ class TestRouteCalculatorSpec extends FunSuite {
     assert(shortest == expected)
   }
 
+  def testFileLongest(file: String, expected: Int): Any = {
+    val calc = new RouteCalculator
+    val shortest: Int = calc.calculateLongest(Source.fromURL(getClass.getResource("/" + file)))
+    assert(shortest == expected)
+  }
+
   test("test inputD") {
     testFile("inputD", 141)
   }
@@ -37,6 +43,10 @@ class TestRouteCalculatorSpec extends FunSuite {
 
   test("Final test") {
     testFile("input", 207)
+  }
+
+  test("Test partb max") {
+    testFileLongest("input", 207)
   }
 }
 

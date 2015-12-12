@@ -42,16 +42,21 @@ class RouteCalculator {
       distance + calculateDistance(places.drop(1))
   }
 
-  def calculateBruteForce() = {
+  def calculateDistances() = {
     val places = distances.keys.toList
     val permutations = places.permutations
-    permutations.map((p) => (p, calculateDistance(p))).minBy(_._2)
+    permutations.map((p) => (p, calculateDistance(p)))
   }
 
   def calculateShortest(file: Source): Int = {
     parseInput(file)
-    val path: (List[String], Int) = calculateBruteForce()
-    path._2
+    val min = calculateDistances().minBy(_._2)
+    min._2
   }
 
+  def calculateLongest(file: Source): Int = {
+    parseInput(file)
+    val max = calculateDistances().maxBy(_._2)
+    max._2
+  }
 }
