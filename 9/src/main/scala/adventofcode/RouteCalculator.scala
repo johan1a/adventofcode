@@ -30,10 +30,10 @@ class RouteCalculator {
   }
 
   def parseInput(file: Source) = {
-    file.getLines().foreach(parseRoute)
+    file.getLines().filter(!_.isEmpty).foreach(parseRoute)
   }
 
-  def calculateDistance(places: List[String]) : Int = places match  {
+  def calculateDistance(places: List[String]): Int = places match {
     case List(place) => 0
     case ss =>
       val first = ss.head
@@ -45,12 +45,13 @@ class RouteCalculator {
   def calculateBruteForce() = {
     val places = distances.keys.toList
     val permutations = places.permutations
-    permutations.map(calculateDistance).min
+    permutations.map((p) => (p, calculateDistance(p))).minBy(_._2)
   }
 
   def calculateShortest(file: Source): Int = {
     parseInput(file)
-    calculateBruteForce()
+    val path: (List[String], Int) = calculateBruteForce()
+    path._2
   }
 
 }

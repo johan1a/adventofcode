@@ -16,8 +16,27 @@ class TestRouteCalculatorSpec extends FunSuite {
     assert(shortest == expected)
   }
 
-  test("Final scala.test") {
-    testFile("input", 1)
+  test("test inputD") {
+    testFile("inputD", 141)
+  }
+
+  test("test inputA") {
+    testFile("inputA", 117)
+  }
+  test("test single1") {
+    testFile("test1", 129)
+  }
+
+  test("test 2") {
+    testFile("test2", 151)
+  }
+
+  test("test 3") {
+    testFile("test3", 605)
+  }
+
+  test("Final test") {
+    testFile("input", 207)
   }
 }
 
